@@ -5,12 +5,21 @@
   </nav>
 
   <main>
+
+    <p class="nextTurn">
+      <span :="nextTurn.value">{{nextTurn}}</span> turn
+    </p>
+
     <div class="gameGrid">
-      <input 
+      <button        
+        v-for="button in buttons"
         type="button" 
-        value=""
-        v-for="button in buttons">
+        @click="handleClick(button.id)">
+        {{button.text}}
+      </button>
+
     </div>
+
   </main>
 
 </template>
@@ -25,10 +34,22 @@
     buttons.value.push(
       {
         id: i,
-        value: ''
+        text: ''
       }
     )
 
+  }
+
+  const nextTurn = ref('O')
+  const handleClick = (buttonId) => {
+
+
+
+    if( buttons.value[buttonId].text == '' ) {
+      buttons.value[buttonId].text = nextTurn.value
+    }
+
+    nextTurn.value = nextTurn.value == 'O' ? 'X' : 'O'
   }
 
 </script>
@@ -55,18 +76,38 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
   }
+
+  .nextTurn {
+    font-size: 2rem;
+  }
+    .nextTurn span {
+      font-size: 3rem;
+    }
 
   .gameGrid {
-    width: 330px;
+    width: 340px;
     aspect-ratio: 1/1;
     background: lightcoral;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 20px;
   }
 
-    .gameGrid input {
+    .gameGrid button {
+      cursor: pointer;
       width: 100px;
       aspect-ratio: 1/1;
-      margin: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      border-radius: 20px;
+      border: 1px solid gray;
+      box-shadow: 0px 0px 5.3px rgba(0, 0, 0, 0.028);
     }
 
 </style>
