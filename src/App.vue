@@ -17,11 +17,11 @@
 
       <div class="winView" v-if="winner" :="winner.value">
         <div class="normal">
-          <p>The winner is {{winner}}!</p>
+          <p>{{winner}}</p>
         </div>
         <button @click="resetGrid"><ion-icon name="refresh-outline"></ion-icon></button>
         <div class="flipped">
-          <p>The winner is {{winner}}!</p>
+          <p>{{winner}}</p>
         </div>
 
       </div>
@@ -76,7 +76,8 @@
       (buttons.value[0].text + buttons.value[4].text + buttons.value[8].text == 'OOO') ||
       (buttons.value[2].text + buttons.value[4].text + buttons.value[6].text == 'OOO')
       ){
-        winner.value = 'O'
+        winner.value = 'The winner is O!'
+        return
       }
 
     if(
@@ -89,7 +90,20 @@
       (buttons.value[0].text + buttons.value[4].text + buttons.value[8].text == 'XXX') ||
       (buttons.value[2].text + buttons.value[4].text + buttons.value[6].text == 'XXX')
       ){
-        winner.value = 'X'
+        winner.value = 'The winner is X!'
+        return
+      }
+
+      let allChecked = true
+
+      for (const button of buttons.value) {
+        if(button.text == ''){
+          allChecked = false
+        }
+      }
+
+      if(allChecked){
+        winner.value = "It's  a draw!"
       }
 
   }
