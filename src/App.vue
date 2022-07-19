@@ -43,8 +43,6 @@
   const nextTurn = ref('O')
   const handleClick = (buttonId) => {
 
-
-
     if( buttons.value[buttonId].text == '' ) {
       buttons.value[buttonId].text = nextTurn.value
     }
